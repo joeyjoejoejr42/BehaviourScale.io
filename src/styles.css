@@ -1,0 +1,373 @@
+/* Basic Reset */
+
+* {
+  margin: 0;
+
+  padding: 0;
+
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Outfit", sans-serif;
+
+  background: linear-gradient(
+    180deg,
+    #fdf8e3,
+    #a1e0e8
+  ); /* Playful yellow-to-teal gradient */
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: flex-end;
+
+  height: 100vh;
+
+  margin: 0;
+
+  padding: 0;
+
+  color: #333;
+}
+
+/* Container for the whole app */
+
+.app-container {
+  text-align: center;
+
+  margin-bottom: 40px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+}
+
+/* Text input and button */
+
+#textInput {
+  padding: 15px 25px;
+
+  font-size: 18px;
+
+  border-radius: 25px; /* Rounded edges for a more playful feel */
+
+  border: 2px solid #aaa; /* Neutral gray border */
+
+  margin-bottom: 0px;
+
+  width: 240px;
+
+  background-color: #fff;
+
+  color: #333;
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+#submitButton {
+  padding: 12px 20px;
+
+  font-size: 18px;
+
+  background-color: #4f9cff; /* Soft blue */
+
+  color: white;
+
+  border: 2px solid #4f9cff;
+
+  border-radius: 25px;
+
+  cursor: pointer;
+
+  font-weight: bold;
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+  margin-left: 5px;
+}
+
+#submitButton:hover {
+  background-color: #377bb5; /* Slightly darker blue on hover */
+
+  border-color: #377bb5;
+}
+
+/* Bubble Containers */
+
+.bubble-container {
+  position: absolute;
+
+  left: 0;
+
+  width: 100%;
+
+  height: 100px;
+
+  display: flex;
+
+  justify-content: flex-start;
+
+  align-items: center;
+
+  padding: 10px;
+
+  box-sizing: border-box;
+
+  z-index: 1;
+
+  border-radius: 25px; /* Rounded edges for a softer look */
+
+  border: 2px solid #000;
+
+  background-color: rgba(255, 255, 255, 0.7);
+
+  transition: background-color 0.3s ease;
+}
+
+/* Updated bubble container colors */
+
+.bubble-container-1 {
+  top: 5%; /* Best behavior - Blue */
+
+  background: linear-gradient(
+    45deg,
+    #007bff,
+    #0056b3
+  ); /* Blue gradient (unchanged) */
+}
+
+.bubble-container-2 {
+  top: 25%; /* Good behavior - Green */
+
+  background: linear-gradient(45deg, #5cb85c, #3e8e41); /* Green gradient */
+}
+
+.bubble-container-3 {
+  top: 45%; /* Bad behavior - Orange */
+
+  background: linear-gradient(45deg, #f0ad4e, #d9534f); /* Orange gradient */
+}
+
+.bubble-container-4 {
+  top: 65%; /* Very bad behavior - Red */
+
+  background: linear-gradient(45deg, #d9534f, #c9302c); /* Dark Red gradient */
+}
+
+/* Emoji styles */
+
+.bubble-container-1::before {
+  content: "😍"; /* Heart eyes for best behavior */
+
+  font-size: 40px;
+
+  margin-right: 20px;
+}
+
+.bubble-container-2::before {
+  content: "🙂"; /* Neutral face for good behavior */
+
+  font-size: 40px;
+
+  margin-right: 20px;
+}
+
+.bubble-container-3::before {
+  content: "😐"; /* Neutral face for bad behavior */
+
+  font-size: 40px;
+
+  margin-right: 20px;
+}
+
+.bubble-container-4::before {
+  content: "😲"; /* Shocked face for very bad behavior */
+
+  font-size: 40px;
+
+  margin-right: 20px;
+}
+
+/* Style for individual bubbles */
+
+.bubble {
+  display: inline-block;
+
+  padding: 12px 18px;
+
+  margin: 10px;
+
+  background-color: #007bff; /* Blue bubble for best behavior */
+
+  border-radius: 25px;
+
+  font-size: 18px;
+
+  color: white;
+
+  text-align: center;
+
+  opacity: 0.9;
+
+  animation: floatBubble 10s linear infinite, rainbowColors 10s infinite;
+
+  cursor: pointer;
+
+  transition: opacity 0.2s ease, transform 0.3s ease;
+}
+
+/* Change bubble color based on container */
+
+.bubble-container-1 .bubble {
+  background-color: #007bff; /* Blue */
+}
+
+.bubble-container-2 .bubble {
+  background-color: #5cb85c; /* Green */
+}
+
+.bubble-container-3 .bubble {
+  background-color: #f0ad4e; /* Orange */
+}
+
+.bubble-container-4 .bubble {
+  background-color: #d9534f; /* Red */
+}
+
+/* Bubble hover effects */
+
+.bubble:hover {
+  transform: scale(1.1); /* Bubble grow effect */
+
+  opacity: 1; /* Full opacity on hover */
+}
+
+/* When a bubble is being dragged */
+
+.bubble.dragging {
+  opacity: 0.5;
+}
+
+/* Add outline when a bubble is selected */
+
+.bubble.selected {
+  border: 3px solid #fff;
+
+  box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.7);
+
+  transform: scale(1.1); /* Slight scaling effect when selected */
+}
+
+/* Up and Down Arrows */
+
+.arrow-buttons {
+  position: absolute;
+
+  right: 200px;
+
+  bottom: 20px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  z-index: 2; /* Ensure arrows are always on top */
+}
+
+.arrow-button {
+  width: 35px;
+
+  height: 35px;
+
+  background-color: #4f9cff; /* Soft blue for arrows */
+
+  color: white;
+
+  border: none;
+
+  border-radius: 50%;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  margin: 5px 0;
+
+  cursor: pointer;
+
+  font-size: 20px;
+}
+
+.arrow-button:hover {
+  background-color: #377bb5; /* Slightly darker blue on hover */
+}
+
+/* Drag and Drop hover feedback for containers */
+
+.bubble-container:hover {
+  border-color: #377bb5; /* Blue border on hover */
+}
+
+/* Keyframe animations */
+
+@keyframes floatBubble {
+  0% {
+    transform: translateX(-100%) translateY(0);
+
+    opacity: 1;
+  }
+
+  25% {
+    transform: translateX(25%) translateY(-10px);
+  }
+
+  50% {
+    transform: translateX(50%) translateY(0);
+  }
+
+  75% {
+    transform: translateX(75%) translateY(10px);
+  }
+
+  100% {
+    transform: translateX(100%) translateY(0);
+
+    opacity: 1;
+  }
+}
+
+@keyframes rainbowColors {
+  0% {
+    background-color: #007bff; /* Blue */
+  }
+
+  16.67% {
+    background-color: #5cb85c; /* Green */
+  }
+
+  33.33% {
+    background-color: #f0ad4e; /* Orange */
+  }
+
+  50% {
+    background-color: #f0ad4e; /* Orange */
+  }
+
+  66.67% {
+    background-color: #d9534f; /* Red */
+  }
+
+  83.33% {
+    background-color: #d9534f; /* Dark Red */
+  }
+
+  100% {
+    background-color: #007bff; /* Blue */
+  }
+}
